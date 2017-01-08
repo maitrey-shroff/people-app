@@ -7,14 +7,26 @@
       counter: {{ people.length }}
     </div>
 
+    Filter by name:
+    <input ng-model="nameFilter">
 
-    <div id="person" ng-repeat="person in people track by $index" ng-click="delete($index)">
-      <li ng-click="showBio($index)"> {{ person.firstName }} </li>
-      <li> {{ person.lastName }} </li>
-      <li ng-if="person.bioVisible"> {{ person.bio }} </li>
-      <a href="#" ng-click="deletePerson($index)"> Delete Person </a>
-      <br />
-    </div>
+    Filter by bio:
+    <input ng-model="bioFilter">
+
+    <button ng-click="toggleOrder('firstName')">order by first name</button>
+    <table style="width:30%">
+      <tr>
+        <th ng-click="toggleOrder('firstName')"> first name {{ getSortIcon('firstName') }} </th>
+        <th ng-click="toggleOrder('lastName')"> last name {{ getSortIcon('lastName') }}</th> 
+        <th> bio </th>
+      </tr>
+      <tr ng-repeat="person in people | filter: {firstName: nameFilter} | filter: {bio: bioFilter} | orderBy:orderAttribute:descending">
+        <td ng-click="showBio($index)"> {{ person.firstName }} </td>
+        <td> {{ person.lastName }} </td> 
+        <td ng-if="person.bioVisible"> {{ person.bio }} </td>
+<!--         <a href="#" ng-click="deletePerson($index)"> Delete Person </a> -->
+      </tr>
+    </table>
 
     Add a person:
     first name: <input ng-model="newFirstName">

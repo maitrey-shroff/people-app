@@ -51,6 +51,28 @@
     $scope.people.splice(index, 1);
   };
 
+  $scope.toggleOrder = function(attribute) {
+    if(attribute != $scope.orderAttribute) {
+      $scope.descending = false;
+    } else {
+      $scope.descending = !$scope.descending;
+    }
+
+    $scope.orderAttribute = attribute;
+  }
+
+  $scope.getSortIcon = function(attribute) {
+    if (attribute === $scope.orderAttribute){
+      if ($scope.descending){
+        return 'v';
+      } else if ($scope.descending == false) {
+          return '^';
+      } else {
+          return '';
+      }
+    }
+  }
+
 
 
   });
